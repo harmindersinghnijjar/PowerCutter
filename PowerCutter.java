@@ -1,8 +1,16 @@
+import org.dreambot.api.methods.input.mouse.MouseSetting;
+import org.dreambot.api.methods.input.mouse.MouseSettings;
 import org.dreambot.api.methods.interactive.GameObjects;
+import org.dreambot.api.methods.interactive.Players;
+import org.dreambot.api.methods.map.Tile;
 import org.dreambot.api.script.AbstractScript;
 import org.dreambot.api.script.Category;
 import org.dreambot.api.script.ScriptManifest;
+import org.dreambot.api.wrappers.interactive.Character;
 import org.dreambot.api.wrappers.interactive.GameObject;
+
+import java.util.concurrent.locks.Condition;
+
 import static org.dreambot.api.methods.container.impl.Inventory.dropAll;
 import static org.dreambot.api.methods.container.impl.Inventory.isFull;
 
@@ -15,6 +23,7 @@ public class PowerCutter extends AbstractScript {
 
     GameObject tree = null;
 
+
     @Override
     public int onLoop() {
         // Returns the boolean value True if the inventory is full.
@@ -22,18 +31,24 @@ public class PowerCutter extends AbstractScript {
         // If True drop all items with the id 1511.
         if (inventoryCheck) {
             dropAll(1511);
-            // If the inventory isn't full, find the closest Oak tree and chop it down.
+            // If the inventory isn't full, find the closest tree and chop it down.
         } else {
             // If action return -1, the player is idle.
             int action = Players.getLocal().getAnimation();
-            log(action);
+            // If play is idle.
             if (action == -1) {
-            tree = GameObjects.closest("Tree");
-            tree.interact("Chop down");
-            }
-                
-        }
+                // If the player is standing still, return true.
+                boolean walkStatus = Players.getLocal().isStandingStill();
+                log("Standing still: " + walkStatus);
+                if (walkStatus) {
+                    tree = GameObjects.closest("Tree");
+                    tree.interact("Chop down");
+                }
 
+            }
+
+
+        }
         return 1000;
     }
 }
