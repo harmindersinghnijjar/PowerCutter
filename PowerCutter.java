@@ -13,7 +13,7 @@ import static org.dreambot.api.methods.container.impl.Inventory.isFull;
 
 public class PowerCutter extends AbstractScript {
 
-    GameObject oakTree = null;
+    GameObject tree = null;
 
     @Override
     public int onLoop() {
@@ -24,8 +24,8 @@ public class PowerCutter extends AbstractScript {
             dropAll(1511, 1521);
             // If the inventory isn't full, find the closest Oak tree and chop it down.
         } else {
-            oakTree = GameObjects.closest("Oak");
-            oakTree.interact("Chop down");
+            tree = GameObjects.closest("Oak");
+            tree.interact("Chop down");
             }
 
 
