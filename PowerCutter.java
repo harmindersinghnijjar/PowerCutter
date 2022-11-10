@@ -38,9 +38,10 @@ public class PowerCutter extends AbstractScript {
             // If play is idle.
             if (action == -1) {
                 // If the player is standing still, return true.
-                boolean walkStatus = Players.getLocal().isStandingStill();
-                log("Standing still: " + walkStatus);
-                if (walkStatus) {
+                boolean standStatus = Players.getLocal().isStandingStill();
+                log("Standing still: " + standStatus);
+                // If the player is standing still i.e., not moving towards another tree, find the closest tree and chop it down.
+                if (standStatus) {
                     tree = GameObjects.closest("Tree");
                     tree.interact("Chop down");
                 }
