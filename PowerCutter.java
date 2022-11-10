@@ -19,15 +19,20 @@ public class PowerCutter extends AbstractScript {
     public int onLoop() {
         // Returns the boolean value True if the inventory is full.
         boolean inventoryCheck = isFull();
-        // If True drop all items with the ids 1511 and 1521.
+        // If True drop all items with the id 1511.
         if (inventoryCheck) {
-            dropAll(1511, 1521);
+            dropAll(1511);
             // If the inventory isn't full, find the closest Oak tree and chop it down.
         } else {
-            tree = GameObjects.closest("Oak");
+            // If action return -1, the player is idle.
+            int action = Players.getLocal().getAnimation();
+            log(action);
+            if (action == -1) {
+            tree = GameObjects.closest("Tree");
             tree.interact("Chop down");
             }
-
+                
+        }
 
         return 1000;
     }
