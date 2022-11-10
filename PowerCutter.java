@@ -12,6 +12,7 @@ import org.dreambot.api.wrappers.interactive.GameObject;
 import java.util.concurrent.locks.Condition;
 import static org.dreambot.api.methods.container.impl.Inventory.dropAll;
 import static org.dreambot.api.methods.container.impl.Inventory.isFull;
+import static org.dreambot.api.methods.walking.impl.Walking.toggleRun;
 
 // Script manifest is required to provide details about your script.
 @ScriptManifest(name = "Power Cutter", description = "Chop down, drop.", author = "Harminder Singh Nijjar",  version = 1.0,
@@ -21,7 +22,8 @@ import static org.dreambot.api.methods.container.impl.Inventory.isFull;
 public class PowerCutter extends AbstractScript {
     // Define a GameObject tree and initialize it with a null value.
      GameObject tree = null;
-
+    // Enable run.
+    boolean runOn = toggleRun();
 
     @Override
     // onLoop() is required to make your bot run in the DreamBot client.
@@ -39,7 +41,6 @@ public class PowerCutter extends AbstractScript {
             if (action == -1) {
                 // If the player is standing still, return true.
                 boolean standStatus = Players.getLocal().isStandingStill();
-                log("Standing still: " + standStatus);
                 // If the player is standing still i.e., not moving towards another tree, find the closest tree and chop it down.
                 if (standStatus) {
                     // Find the closest object with the name Tree.
