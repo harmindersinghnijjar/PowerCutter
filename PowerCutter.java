@@ -15,7 +15,7 @@ import static org.dreambot.api.methods.container.impl.Inventory.isFull;
 import static org.dreambot.api.methods.walking.impl.Walking.toggleRun;
 
 // Script manifest is required to provide details about your script.
-@ScriptManifest(name = "Power Cutter", description = "Chop down, drop.", author = "Harminder Singh Nijjar",  version = 1.0,
+@ScriptManifest(name = "Power Cutter", description = "Chop down, drop.", author = "Harminder Singh Nijjar",  version = 0.1,
         category = Category.WOODCUTTING, image = "")
 
 
